@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💻 League Lookup | Arun K</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* LEAGUE LOOKUP STYLES */
+        .league-lookup {
+            background: #92f7d8;
+            background-image:
+                radial-gradient(circle at 30% 30%, rgba(11, 28, 18, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 70% 70%, rgba(11, 28, 18, 0.1) 2px, transparent 2px);
+            background-size: 20px 20px;
+            border: 6px solid #0b1c12;
+            padding: 40px;
+            margin-top: 40px;
+            box-shadow: 16px 16px 0px #0b1c12;
+        }
+        .league-lookup h3 {
+            color: #0b1c12;
+            font-size: 40px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 0px #00c853;
+        }
+        .league-lookup > p {
+            font-size: 18px;
+            color: #0b1c12;
+            margin-bottom: 32px;
+            text-align: center;
+            line-height: 1.4;
+            font-weight: bold;
+        }
+        .lookup-form-container {
+            max-width: 500px;
+            margin: 0 auto 32px;
+        }
+        .lookup-message {
+            padding: 16px;
+            margin-bottom: 24px;
+            font-weight: 900;
+            text-align: center;
+            border: 4px solid #0b1c12;
+            text-transform: uppercase;
+        }
+        .lookup-message.success {
+            background: #00c853;
+            color: #0b1c12;
+        }
+        .lookup-message.error {
+            background: #e25757;
+            color: #0b1c12;
+        }
+        .lookup-form-container .form-group {
+            margin-bottom: 32px;
+        }
+        .lookup-form-container .form-group label {
+            display: block;
+            font-weight: 900;
+            color: #0b1c12;
+            margin-bottom: 8px;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
+        .lookup-form-container .form-group input,
+        .lookup-form-container .form-group select {
+            width: 100%;
+            padding: 16px;
+            border: 4px solid #0b1c12;
+            font-size: 16px;
+            background: #eef8f0;
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(11, 28, 18, 0.03) 8px, rgba(11, 28, 18, 0.03) 9px);
+            font-weight: 900;
+            color: #0b1c12;
+        }
+        .lookup-form-container .form-group input:focus,
+        .lookup-form-container .form-group select:focus {
+            outline: none;
+            background: #88f3b8;
+            box-shadow: 8px 8px 0px #0b1c12;
+        }
+        .lookup-submit-btn {
+            background: #00c853;
+            color: #0b1c12;
+            padding: 16px 32px;
+            border: 4px solid #0b1c12;
+            font-weight: 900;
+            font-size: 18px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            text-transform: uppercase;
+            box-shadow: 8px 8px 0px #0b1c12;
+        }
+        .lookup-submit-btn:hover {
+            background: #4fd1c5;
+            box-shadow: 12px 12px 0px #0b1c12;
+            transform: translate(-4px, -4px);
+        }
+        .lookup-submit-btn:disabled {
+            background: #7febac;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 8px 8px 0px #0b1c12;
+        }
+        /* Results display */
+        .summoner-results {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #b1f0e9;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(11, 28, 18, 0.08) 3px, rgba(11, 28, 18, 0.08) 6px);
+            border: 4px solid #0b1c12;
+            padding: 24px;
+            box-shadow: 8px 8px 0px #0b1c12;
+        }
+        .summoner-card {
+            background: #4fd1c5;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(11, 28, 18, 0.08) 3px, rgba(11, 28, 18, 0.08) 6px);
+            border: 4px solid #0b1c12;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 8px 8px 0px #0b1c12;
+        }
+        .summoner-card h5 {
+            color: #0b1c12;
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        .champions-grid {
+            display: grid;
+            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        }
+        .champion-card {
+            background: #7febac;
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(11, 28, 18, 0.08) 3px, rgba(11, 28, 18, 0.08) 6px);
+            border: 4px solid #0b1c12;
+            padding: 16px;
+            box-shadow: 8px 8px 0px #0b1c12;
+        }
+        .champion-card:hover {
+            background: #f0c26c;
+            box-shadow: 12px 12px 0px #0b1c12;
+            transform: translate(-4px, -4px);
+        }
+        .champion-card p {
+            margin: 4px 0;
+            font-size: 14px;
+            color: #0b1c12;
+            font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .league-lookup {
+                padding: 24px;
+            }
+            
+            .league-lookup h3 {
+                font-size: 32px;
+            }
+            
+            .champions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">👨🏽‍💻Arun K</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#socials">Contact</a></li>
+                <li><a href="league.html" class="active">🌟League Lookup</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main>
+        <section class="league-lookup">
+            <h3>League Data Lookup</h3>
+            <p>Enter a Riot ID to see their level and top champions!</p>
+            <!-- Lookup message container for success/error messages -->
+            <div id="lookup-message" class="lookup-message" style="display: none;"></div>
+
+            <div class="lookup-form-container">
+                <!-- Riot ID lookup form -->
+                <div class="form-group">
+                    <label for="summoner-name">Riot ID</label>
+                    <input type="text" id="summoner-name" name="summoner-name"
+                        placeholder="GameName#TAG (e.g., Hide on bush#KR1)" required>
+                    <small style="color: #0b1c12; display: block; margin-top: 4px; font-weight: bold;">Format: GameName#TAG</small>
+                </div>
+                <div class="form-group">
+                    <label for="region">Region</label>
+                    <select id="region" name="region">
+                        <option value="na1">North America</option>
+                        <option value="euw1">Europe West</option>
+                        <option value="eun1">Europe Nordic & East</option>
+                        <option value="kr">Korea</option>
+                        <option value="br1">Brazil</option>
+                        <option value="la1">Latin America North</option>
+                        <option value="la2">Latin America South</option>
+                        <option value="oc1">Oceania</option>
+                        <option value="tr1">Turkey</option>
+                        <option value="ru">Russia</option>
+                        <option value="jp1">Japan</option>
+                    </select>
+                </div>
+                <!-- Lookup submit button -->
+                <button type="button" id="lookup-btn" class="lookup-submit-btn">Look Up Summoner</button>
+            </div>
+            <!-- Results display area -->
+            <div id="summoner-results" class="summoner-results" style="display: none;">
+                <h4>Summoner Info</h4>
+                <div id="summoner-info"></div>
+                <div id="champion-mastery"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 ARUN K. Built with ❤️ on AWS</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
